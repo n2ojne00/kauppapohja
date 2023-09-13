@@ -1,11 +1,22 @@
 
 import './App.css';
 import {FaShoppingCart} from 'react-icons/fa'
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 
 
 function App() {
+  const [items,setItems] = useState([]);
+
+  useEffect(() => {
+    const shoppingList = Array();
+    shoppingList.push(new Item('Coffee',1));
+    shoppingList.push(new Item('Cookies',2));
+    shoppingList.push(new Item('Chocolate',4));
+    setItems(shoppingList);
+  }, [])
+
+
   const [cart,setCart] = useState([])
 
   const [products, setProducts] = useState([
@@ -13,6 +24,8 @@ function App() {
     {name: "Pänts", price: 140}, 
     {name: "Hattu", price: 90} 
   ])
+
+
 
   const buy = (e, index) => {
     e.preventDefault()
@@ -36,11 +49,31 @@ function App() {
       </div>
     ))
    }
-   
+
+<div id="shoplist">
+    <h2>Lista</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {items.map(item => (
+          <tr key={item}>
+            <td>{item.name}</td>
+            <td>{item.amount}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
    </div>
 
 
-
+   </div>
+   
   );
 }
 
